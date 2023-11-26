@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Página Principal</title>
+</head>
+<body>
+    <div class="main-container">
+        <p>Esta é uma página de exemplo. Aqui você encontrará algumas informações interessantes.</p>
+        <button onclick="irParaTime('masculino')">Time Masculino</button>
+        <button onclick="irParaTime('feminino')">Time Feminino</button>
+        <button onclick="voltarParaIndex()">Voltar para a página inicial</button>
+    </div>
+    <script>
+        async function irParaTime(time) {
+            let url = '';
+            if (time === 'masculino') {
+                url = 'https://botafogo-atletas.mange.li/masculino';
+            } else if (time === 'feminino') {
+                url = 'https://botafogo-atletas.mange.li/feminino';
+            }
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                console.log(data); // Aqui você pode usar os dados para fazer algo na página
+            } catch (error) {
+                console.error('Erro ao obter os dados:', error);
+            }
+        }
+
+        function voltarParaIndex() {
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

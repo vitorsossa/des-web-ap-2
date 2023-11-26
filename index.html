@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Login Page</title>
+    <script src="codigo.js"></script>
+</head>
+<body>
+    <div class="login-container">
+        <img src="https://th.bing.com/th/id/R.efd228b6c5d2f85be8ef56201d7641fe?rik=AO15Soswv4%2bCkg&riu=http%3a%2f%2f1.bp.blogspot.com%2f-ocCjp_ZVlZE%2fUhwxpzJZQBI%2fAAAAAAAAWuw%2f4O0sUwfxhlw%2fs1600%2fEscudo-do-Botafogo-queroimagem-Cei%c3%a7a-Crispim%2b(2).png&ehk=5LJhkGyyVUFlElEKDBYqBFTieqZ8p9TZKYbRe7NAtyE%3d&risl=&pid=ImgRaw&r=0" alt="Botafogo Logo" class="logo">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <label for="password">Password:</label>
+            <!-- Adicionando o evento onkeydown -->
+            <input type="password" id="password" name="password" required onkeydown="checkEnter(event)">
+            <button type="button" onclick="submitForm()">Login</button>
+        </form>
+        <p id="message"></p>
+        <p>Senha: login123</p>
+    </div>
+    <script>
+        // Função para verificar se a tecla pressionada foi "Enter"
+        function checkEnter(event) {
+            if (event.key === 'Enter') {
+                submitForm();
+            }
+        }
+
+        // Função para verificar a senha
+        function submitForm() {
+            var passwordInput = document.getElementById('password').value;
+
+            if (passwordInput === 'login123') {
+                window.location.href = 'principal.html';
+            } else {
+                document.getElementById('message').innerHTML = 'Senha incorreta. Tente novamente.';
+            }
+        }
+    </script>
+</body>
+</html>

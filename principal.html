@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Página Principal</title>
+    <script src="codigo.js"></script>
+</head>
+<body>
+    <div class="main-container">
+        <p>Esta é uma página de exemplo. Aqui você encontrará algumas informações interessantes.</p>
+        <button onclick="filtrarPorGenero('masculino')">Time Masculino</button>
+        <button onclick="filtrarPorGenero('feminino')">Time Feminino</button>
+        <button onclick="exibirElencoCompleto()">Elenco Completo</button>
+        <button onclick="voltarParaIndex()">Voltar para a página inicial</button>
+    
+        <div id="atletas-container">
+            <!-- Aqui será inserido dinamicamente o conteúdo dos atletas -->
+        </div>
+    </div>
+
+    <script>
+        let atletas = []; // Array para armazenar todos os atletas
+
+        // Função para exibir todos os atletas na página
+        function exibirAtletas(listaAtletas) {
+            const atletasContainer = document.getElementById('atletas-container');
+            atletasContainer.innerHTML = ''; // Limpa o conteúdo atual
+
+            listaAtletas.forEach(atleta => {
+                const divAtleta = document.createElement('div');
+                divAtleta.classList.add('atleta');
+
+                const img = document.createElement('img');
+                img.src = atleta.imagem;
+                img.alt = atleta.nome;
+
+                const nome = document.createElement('h2');
+                nome.textContent = atleta.nome;
+
+                const posicao = document.createElement('p');
+                posicao.textContent = `Posição: ${atleta.posicao}`;
+
+                const descricao = document.createElement('p');
+                descricao.textContent = atleta.descricao;
+
+                divAtleta.appendChild(img);
+                divAtleta.appendChild(nome);
+                divAtleta.appendChild(posicao);
+                divAtleta.appendChild(descricao);
+
+                atletasContainer.appendChild(divAtleta);
+            });
+        }
+
+        // Função para exibir todos os atletas na página
+        function exibirElencoCompleto() {
+            exibirAtletas(atletas);
+        }
+
+        // Função para filtrar os atletas por gênero
+        function filtrarPorGenero(genero) {
+            const atletasFiltrados = atletas.filter(atleta => atleta.elenco === genero);
+            exibirAtletas(atletasFiltrados);
+        }
+
+        function voltarParaIndex() {
+            window.location.href = 'index.html';
+        }
+
+        // Função para inicializar a página
+        function iniciarPagina() {
+            // Obtém os dados dos atletas através da requisição
+            const url = "https://botafogo-atletas.mange.li";
+            fetch(`${url}/all`)
+                .then(response => response.json())
+                .then(data => {
+                    atletas = data; // Armazena os dados dos atletas
+                })
+                .catch(error => {
+                    console.error('Erro ao obter os dados:', error);
+                });
+        }
+
+        // Chama a função de inicialização quando a página carregar
+        window.onload = iniciarPagina;
+    </script>
+</body>
+</html>
